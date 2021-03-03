@@ -1,46 +1,48 @@
 <html>
-<head>
-  <meta name="description" content="DevLab: Configure a popup">
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Map of Canada</title>
-  <style>
-    html, body, #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-  <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
-  <script src="https://js.arcgis.com/4.18/"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      ArcGIS Developer Guide: 2D Polygons
+    </title>
 
-  <script>
-  require([
-    "esri/config",
-    "esri/Map",
-    "esri/views/MapView",
-    "esri/layers/FeatureLayer"
-    "esri/symbols/SimpleFillSymbol",
-    "esri/renderers/SimpleRenderer"
-    
-  ], function(esriConfig,Map, MapView, FeatureLayer, SimpleFillSymbol, SimpleRenderer) {
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18//esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.18//"></script>
 
-  esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
 
-  const map = new Map({
-    basemap: "arcgis-topographic"
-  });
+    <script>
+      require([
+        "esri/config",
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/renderers/SimpleRenderer"
+      ], function (
+        esriConfig,
+        Map,
+        MapView,
+        FeatureLayer,
+        SimpleFillSymbol,
+        SimpleRenderer
+      ) {
 
-  const view = new MapView({
-    container: "viewDiv",
-    map: map,
-    center: [-86.912335, 50.349362],
-    zoom: 6
-  });
-  
-    //Create a fill
-    const renderer = new SimpleRenderer({
+        esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
+
+        const renderer = new SimpleRenderer({
           symbol: new SimpleFillSymbol({
             color: "rgba(249, 249, 199, .05)",
             outline: {
@@ -49,29 +51,35 @@
             }
           })
         });
-    
-    // Define a pop-up for walking locations
-    //  const popupWalks = {
-    //   "title": "{Name}",
-    //   "content": "{Description}",
-    // }
-    
-  //Romantic Walks layer
-  const walksLayer = new FeatureLayer({
-    url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
-    //outFields: ["Name","Description"],
-    //popupTemplate: popupWalks,
-    renderer: renderer,
-  });
 
-  map.add(walksLayer);
-    
-  });
-    
-</script>
 
-</head>
-<body>
-  <div id="viewDiv"></div>
-</body>
+        // Set the renderer on the layer
+        const layer = new FeatureLayer({
+          url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
+          renderer: renderer,
+          title: "States"
+        });
+     
+        // Add the layers to the map
+        const map = new Map({
+          basemap: "arcgis-dark-gray",
+          layers: [ layer ]
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 3,
+          center: [-95, 38],
+          constraints: {
+            snapToZoom:false
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
 </html>
