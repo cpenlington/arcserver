@@ -61,14 +61,14 @@
      
         // Add the layers to the map
         const map = new Map({
-          basemap: "arcgis-light-gray",
+          basemap: "arcgis-topographic",
           layers: [ layer ]
         });
 
         const view = new MapView({
           container: "viewDiv",
           map: map,
-          zoom: 4,
+          zoom: 3,
           center: [-97, 59],
           constraints: {
             snapToZoom:false
