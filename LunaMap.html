@@ -1,8 +1,9 @@
 <html>
 <head>
+  <meta name="description" content="DevLab: Configure a popup">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>ArcGIS API for JavaScript Tutorials: Display a scene</title>
+  <title>Romantic Walks in PEC</title>
   <style>
     html, body, #viewDiv {
       padding: 0;
@@ -11,39 +12,63 @@
       width: 100%;
     }
   </style>
-
   <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.18/"></script>
 
   <script>
-    require([
-      "esri/config",
-      "esri/Map",
-      "esri/views/SceneView"
-  ], function(esriConfig,Map, SceneView) {
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
 
-    esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
+    "esri/layers/FeatureLayer"
 
-    const map = new Map({
-      basemap: "arcgis-topographic", //Basemap layer service
-      ground: "world-elevation", //Elevation service
-    });
+  ], function(esriConfig,Map, MapView, FeatureLayer) {
 
-    const view = new SceneView({
-      container: "viewDiv",
-      map: map,
-      camera: {
-        position: {
-          x: -118.808, //Longitude
-          y: 33.961, //Latitude
-          z: 2000 //Meters
-        },
-        tilt: 75
+  esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
+
+  const map = new Map({
+    basemap: "arcgis-dark-gray"
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [-77.2579974826127, 44.000104496557114],
+    zoom: 10
+  });
+  
+    //Create a marker
+    const simpleMarkerSymbol = {
+    "type":"simple",
+    "symbol":{
+      "type": "simple-marker",
+      "color": [255, 192, 203],  // Pink
+      "outline": {
+        color: [255, 255, 255], // White
+        width: 1}
+    }
+    };
+    
+    // Define a pop-up for walking locations
+      const popupWalks = {
+        "title": "{Name}",
+        "content": "{Description}",
       }
-      });
+    
+  //Romantic Walks layer
+  const walksLayer = new FeatureLayer({
+    url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
+    outFields: ["Name","Description"],
+    popupTemplate: popupWalks,
+    renderer: simpleMarkerSymbol,
+  });
 
-    });
-  </script>
+  map.add(walksLayer);
+    
+  });
+    
+</script>
 
 </head>
 <body>
