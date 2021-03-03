@@ -42,21 +42,20 @@
 
         esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
 
-        const renderer = new SimpleRenderer({
-          symbol: new SimpleFillSymbol({
-            color: "rgba(249, 249, 199, .05)",
-            outline: {
-              color: "red",
-              width: 2
-            }
-          })
-        });
+        //const renderer = new SimpleRenderer({
+        //  symbol: new SimpleFillSymbol({
+        //    color: "rgba(249, 249, 199, .05)",
+       //     outline: {
+        //      color: "red",
+      //        width: 2
+        //    }
+     //     })
+     //   });
 
 
         // Set the renderer on the layer
         const layer = new FeatureLayer({
           url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
-          renderer: renderer,
           title: "Canada"
         });
      
