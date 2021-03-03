@@ -46,9 +46,17 @@
         // Set the renderer on the layer
         const layer = new FeatureLayer({
           url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada2/MapServer/0",
+          outFields: ["PRENAME"],
+          popupTemplate: popup,
           title: "Canada"
         });
      
+        // Define a pop-up for walking locations
+        const popup = {
+        "title": "Canada",
+        "content": "{PRENAME}",
+      }
+        
         // Add the layers to the map
         const map = new Map({
           basemap: "arcgis-topographic",
