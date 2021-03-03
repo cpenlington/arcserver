@@ -20,10 +20,11 @@
     "esri/config",
     "esri/Map",
     "esri/views/MapView",
-
     "esri/layers/FeatureLayer"
-
-  ], function(esriConfig,Map, MapView, FeatureLayer) {
+    "esri/symbols/SimpleFillSymbol",
+    "esri/renderers/SimpleRenderer"
+    
+  ], function(esriConfig,Map, MapView, FeatureLayer, SimpleFillSymbol, SimpleRenderer) {
 
   esriConfig.apiKey = "AAPK4314a026491745d0a74bd0fc4027ebee9T3OP6WIH0WRl4BU3vKmir6Z3VGogrjIZ84N4kt6MhiM5erJZQm41nE4wPJ4Y-Be";
 
@@ -35,10 +36,10 @@
     container: "viewDiv",
     map: map,
     center: [-86.912335, 50.349362],
-    zoom: 5
+    zoom: 6
   });
   
-    //Create a marker
+    //Create a fill
     const renderer = new SimpleRenderer({
           symbol: new SimpleFillSymbol({
             color: "rgba(249, 249, 199, .05)",
@@ -50,16 +51,16 @@
         });
     
     // Define a pop-up for walking locations
-      const popupWalks = {
-        "title": "{Name}",
-        "content": "{Description}",
-      }
+    //  const popupWalks = {
+    //   "title": "{Name}",
+    //   "content": "{Description}",
+    // }
     
   //Romantic Walks layer
   const walksLayer = new FeatureLayer({
     url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
-    outFields: ["Name","Description"],
-    popupTemplate: popupWalks,
+    //outFields: ["Name","Description"],
+    //popupTemplate: popupWalks,
     renderer: renderer,
   });
 
