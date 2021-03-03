@@ -39,15 +39,15 @@
   });
   
     //Create a marker
-    const simpleMarkerSymbol = {
-  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-  color: [ 51,51, 204, 0.9 ],
-  style: "solid",
-  outline: {  // autocasts as new SimpleLineSymbol()
-    color: "white",
-    width: 1
-  }
-};
+    const renderer = new SimpleRenderer({
+          symbol: new SimpleFillSymbol({
+            color: "rgba(249, 249, 199, .05)",
+            outline: {
+              color: "white",
+              width: .15
+            }
+          })
+        });
     
     // Define a pop-up for walking locations
       const popupWalks = {
@@ -60,7 +60,7 @@
     url: "https://luna.flemingcollege.ca/arcgis/rest/services/Geom99lab1/cpenlingCanada/MapServer/0",
     outFields: ["Name","Description"],
     popupTemplate: popupWalks,
-    renderer: simpleMarkerSymbol,
+    renderer: renderer,
   });
 
   map.add(walksLayer);
